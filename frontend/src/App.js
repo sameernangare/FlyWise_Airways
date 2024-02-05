@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./routes/Home";
 import Navbar from "./components/Navbar";
+import Home from "./routes/Home";
+import About from "./routes/About";
 
 // Importing Context and Reducer for state management
 import { createContext, useReducer } from "react";
@@ -17,13 +18,14 @@ function App() {
     <div className="App">
       {/* Providing the UserContext to the entire application */}
       <UserContext.Provider value={{ state, dispatch }}>
-        {/* Rendering the Navbar component */}
         <Navbar></Navbar>
 
-        {/* Defining routes for the application */}
         <Routes>
           {/* Route for the home page, rendering the Home component */}
           <Route path="/" element={<Home />} />
+
+          {/* Route for the about us page, rendering the About component */}
+          <Route path="/about" element={<About />} />
         </Routes>
       </UserContext.Provider>
     </div>

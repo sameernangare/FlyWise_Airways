@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 
 // Background image of home page
-import heroImg from "../assets/heroImg.jpg";
+import homeImg from "../assets/homeImg.jpg";
 
 function Home() {
   return (
@@ -9,7 +9,7 @@ function Home() {
       {/* Rendering the Hero component with specified props (Parent -- Home) (Child -- Hero) */}
       <Hero
         cName="hero"
-        heroImg={heroImg} // Image for the hero section
+        heroImg={homeImg} // Image for the hero section
         title="Your Journey Your Story" // Title for the hero section
         text="Choose Your Favourite Destination." // Text content for the hero section
         url="/bookflight"
