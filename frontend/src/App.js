@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./routes/Home";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
+import Footer from "./components/Footer";
 
 // Importing Context and Reducer for state management
 import { createContext, useReducer } from "react";
@@ -31,6 +32,7 @@ function App() {
           {/* Route for the contact us page, rendering the Contact component */}
           <Route path="/contact" element={<Contact />} />
         </Routes>
+        <Footer></Footer>
       </UserContext.Provider>
     </div>
   );
