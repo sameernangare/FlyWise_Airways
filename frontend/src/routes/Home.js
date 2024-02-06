@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import UserSidebar from "../components/UserSidebar";
+import Destination from "../components/Destination";
 
 // Background image of home page
 import homeImg from "../assets/homeImg.jpg";
@@ -19,6 +20,7 @@ function Home() {
           btnText="Book Tickets" // Text content for the button
         />
       </UserSidebar>
+      <Destination />
     </>
   );
 }
