@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import UserSidebar from "../components/UserSidebar";
 import Destination from "../components/Destination";
+import Trip from "../components/Trip";
 
 // Background image of home page
 import homeImg from "../assets/homeImg.jpg";
@@ -21,6 +22,7 @@ function Home() {
         />
       </UserSidebar>
       <Destination />
+      <Trip />
     </>
   );
 }
