@@ -5,6 +5,12 @@ import Home from "./routes/Home";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
 import Footer from "./components/Footer";
+import Register from "./routes/Register";
+import SignIn from "./routes/SignIn";
+import Logout from "./routes/Logout";
+import PageNotFound from "./routes/PageNotFound";
+
+import "react-toastify/dist/ReactToastify.css";
 
 // Importing Context and Reducer for state management
 import { createContext, useReducer } from "react";
@@ -23,14 +29,13 @@ function App() {
         <Navbar></Navbar>
 
         <Routes>
-          {/* Route for the home page, rendering the Home component */}
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/" element={<Home />} />
-
-          {/* Route for the about us page, rendering the About component */}
           <Route path="/about" element={<About />} />
-
-          {/* Route for the contact us page, rendering the Contact component */}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
