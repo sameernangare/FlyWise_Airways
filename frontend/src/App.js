@@ -6,6 +6,8 @@ import About from "./routes/About";
 import Contact from "./routes/Contact";
 import Footer from "./components/Footer";
 import Register from "./routes/Register";
+import SignIn from "./routes/SignIn";
+
 import "react-toastify/dist/ReactToastify.css";
 
 // Importing Context and Reducer for state management
@@ -29,6 +31,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<SignIn />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
