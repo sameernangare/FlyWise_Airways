@@ -3,15 +3,19 @@ package com.flywise.pojos;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,7 +58,10 @@ public class AppUser {
 	
 	
 	// List of Booking
+	@JsonIgnore
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
 	private List<Booking> bookingList = new ArrayList<Booking>();
+	
 	// List of Payment
 	// List of FeedBack
 	
