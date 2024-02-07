@@ -1,0 +1,65 @@
+.add-flight-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: auto;
+}
+
+.add-flight-form div {
+  margin-bottom: 1rem;
+}
+
+.add-flight-form label {
+  font-weight: bold;
+}
+.add-flight-form input[type="text"] {
+  border-color: #007bff;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.add-flight-form input,
+.add-flight-form select {
+  /* border: none; */
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.add-flight-form input[type="date"],
+.add-flight-form input[type="time"] {
+  width: 100%;
+}
+
+.add-flight-form select {
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+.add-flight-form input[type="submit"] {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-flight-form button {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-flight-form button:hover {
+  background-color: #0069d9;
+}
