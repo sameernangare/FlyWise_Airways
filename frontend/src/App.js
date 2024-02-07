@@ -5,6 +5,8 @@ import Home from "./routes/Home";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
 import Footer from "./components/Footer";
+import Register from "./routes/Register";
+import "react-toastify/dist/ReactToastify.css";
 
 // Importing Context and Reducer for state management
 import { createContext, useReducer } from "react";
@@ -23,14 +25,10 @@ function App() {
         <Navbar></Navbar>
 
         <Routes>
-          {/* Route for the home page, rendering the Home component */}
           <Route path="/" element={<Home />} />
-
-          {/* Route for the about us page, rendering the About component */}
           <Route path="/about" element={<About />} />
-
-          {/* Route for the contact us page, rendering the Contact component */}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>

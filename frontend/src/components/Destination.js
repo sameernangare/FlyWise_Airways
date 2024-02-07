@@ -8,7 +8,7 @@ import mumbaiImg2 from "../assets/mumbaiImg2.jpg";
 const Destination = () => {
   return (
     <div className="destination">
-      <h1>Popular Destination</h1>
+      <h1>Popoular Destinations</h1>
       <p>Tours give you the opportunity to see a lot, within a time frame.</p>
 
       <DestinationData
