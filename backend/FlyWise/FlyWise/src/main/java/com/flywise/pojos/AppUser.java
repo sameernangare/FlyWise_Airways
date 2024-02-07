@@ -63,6 +63,9 @@ public class AppUser {
 	private List<Booking> bookingList = new ArrayList<Booking>();
 	
 	// List of Payment
+	@JsonIgnore
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
+	private List<Payment> paymentList = new ArrayList<Payment>();
 	// List of FeedBack
 	
 	public AppUser(String firstName, String lastName, String email, String password, String phoneNumber, String govtId,
