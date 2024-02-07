@@ -1,6 +1,10 @@
 package com.flywise.pojos;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,18 +20,38 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AppUser {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	private int userId;
+	
+	@Column(name="first_name", length = 25)
 	private String firstName;
+	
+	@Column(name = "last_name", length = 25)
 	private String lastName;
+	
+	@Column(name = "email", length = 25, unique = true, nullable = false)
 	private String email;
+	
+	@Column(name = "password", length = 100, nullable = false)
 	private String password;
+	
+	@Column(name = "phone")
 	private String phoneNumber;
+
+	@Column(name = "govt_id", length = 50)
 	private String govtId;
+	
+	@Column(name = "govt_id_number", length = 50)
 	private String govtIdNumber;
+	
+	@Column(name = "role", length = 25)
 	private String role;
 	
 	
 	// List of Booking
+	
 	// List of Payment
 	// List of FeedBack
 	
