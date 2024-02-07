@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Register from "./routes/Register";
 import SignIn from "./routes/SignIn";
 import Logout from "./routes/Logout";
+import PageNotFound from "./routes/PageNotFound";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,6 +29,7 @@ function App() {
         <Navbar></Navbar>
 
         <Routes>
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
