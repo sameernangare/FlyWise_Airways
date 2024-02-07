@@ -7,6 +7,7 @@ import Contact from "./routes/Contact";
 import Footer from "./components/Footer";
 import Register from "./routes/Register";
 import SignIn from "./routes/SignIn";
+import Logout from "./routes/Logout";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
