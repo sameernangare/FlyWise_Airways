@@ -9,6 +9,8 @@ import Register from "./routes/Register";
 import SignIn from "./routes/SignIn";
 import Logout from "./routes/Logout";
 import PageNotFound from "./routes/PageNotFound";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import { UserProfile } from "./UserPages/UserProfile";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -36,6 +38,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/logout" element={<Logout />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/userprofile" element={<UserProfile />} />
+          </Route>
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
