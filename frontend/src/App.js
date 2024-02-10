@@ -14,6 +14,7 @@ import { UserProfile } from "./UserPages/UserProfile";
 import BookFlight from "./UserPages/BookFlight";
 import { Dashboard } from "./pages/Dashboard";
 import UserBooking from "./UserPages/UserBooking";
+import { GetUsers } from "./pages/GetUsers";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -51,6 +52,7 @@ function App() {
 
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/getUsers" element={<GetUsers />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
