@@ -12,6 +12,7 @@ import PageNotFound from "./routes/PageNotFound";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { UserProfile } from "./UserPages/UserProfile";
 import BookFlight from "./UserPages/BookFlight";
+import { Dashboard } from "./pages/Dashboard";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -45,6 +46,9 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/userprofile" element={<UserProfile />} />
           </Route>
+
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
