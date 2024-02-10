@@ -11,6 +11,7 @@ import Logout from "./routes/Logout";
 import PageNotFound from "./routes/PageNotFound";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { UserProfile } from "./UserPages/UserProfile";
+import BookFlight from "./UserPages/BookFlight";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,8 +36,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/userhome" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/bookflight" element={<BookFlight />} />
           <Route path="/logout" element={<Logout />} />
 
           <Route element={<ProtectedRoute />}>
