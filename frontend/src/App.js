@@ -69,6 +69,7 @@ function App() {
           <Route path="/addFlight" element={<AddFlight />} />
           <Route path="/getFlight" element={<FlightDetails />} />
           <Route path="/updateflight" element={<UpdateFlight />} />
+          <Route path="/getfeedback" element={<GetFeedback />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
