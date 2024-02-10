@@ -19,6 +19,8 @@ import { AddFlight } from "./pages/AddFlight";
 import { FlightDetails } from "./pages/FlightDetails";
 import { UpdateFlight } from "./pages/UpdateFlight";
 import SelectSeat from "./UserPages/SelectSeat";
+import ConfirmBooking from "./UserPages/ConfirmBooking";
+import { PastBookings } from "./UserPages/PastBookings";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -53,6 +55,8 @@ function App() {
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/addPassengers" element={<UserBooking />} />
             <Route path="/selectseat" element={<SelectSeat />} />
+            <Route path="/confirmBooking" element={<ConfirmBooking />} />
+            <Route path="/userhistory" element={<PastBookings />} />
           </Route>
 
           <Route path="/admin" element={<Dashboard />} />
