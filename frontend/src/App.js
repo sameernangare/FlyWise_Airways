@@ -18,6 +18,7 @@ import { GetUsers } from "./pages/GetUsers";
 import { AddFlight } from "./pages/AddFlight";
 import { FlightDetails } from "./pages/FlightDetails";
 import { UpdateFlight } from "./pages/UpdateFlight";
+import SelectSeat from "./UserPages/SelectSeat";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -51,6 +52,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/addPassengers" element={<UserBooking />} />
+            <Route path="/selectseat" element={<SelectSeat />} />
           </Route>
 
           <Route path="/admin" element={<Dashboard />} />
