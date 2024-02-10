@@ -13,6 +13,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { UserProfile } from "./UserPages/UserProfile";
 import BookFlight from "./UserPages/BookFlight";
 import { Dashboard } from "./pages/Dashboard";
+import UserBooking from "./UserPages/UserBooking";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -45,6 +46,7 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/addPassengers" element={<UserBooking />} />
           </Route>
 
           <Route path="/admin" element={<Dashboard />} />
