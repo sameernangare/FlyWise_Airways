@@ -17,6 +17,7 @@ import UserBooking from "./UserPages/UserBooking";
 import { GetUsers } from "./pages/GetUsers";
 import { AddFlight } from "./pages/AddFlight";
 import { FlightDetails } from "./pages/FlightDetails";
+import { UpdateFlight } from "./pages/UpdateFlight";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -57,6 +58,7 @@ function App() {
           <Route path="/getUsers" element={<GetUsers />} />
           <Route path="/addFlight" element={<AddFlight />} />
           <Route path="/getFlight" element={<FlightDetails />} />
+          <Route path="/updateflight" element={<UpdateFlight />} />
         </Routes>
         <Footer></Footer>
       </UserContext.Provider>
