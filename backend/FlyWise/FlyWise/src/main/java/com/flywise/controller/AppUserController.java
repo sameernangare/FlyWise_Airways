@@ -18,6 +18,7 @@ public class AppUserController {
 	@Autowired
 	private IAppUserService appUserService;
 	
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
