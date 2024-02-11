@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flywise.dto.AppUserDto;
 import com.flywise.pojos.AppUser;
+import com.flywise.pojos.Feedback;
 import com.flywise.pojos.Passenger;
 import com.flywise.repository.FeedbackRepository;
 import com.flywise.service.IAppUserService;
@@ -50,11 +51,15 @@ public class AdminController {
 		if(!listOfPassangers.isEmpty())
 			return new ResponseEntity<List<Passenger>>(listOfPassangers, HttpStatus.OK);
 		else
-			return new ResponseEntity<String>("No Passangers found.", HttpStatus.NO_CONTENT)
+			return new ResponseEntity<String>("No Passangers found.", HttpStatus.NO_CONTENT);
 		
 	}
 	
-	
+	@GetMapping("/feedback")
+	public List<Feedback> getUserFeedback(){
+		List<Feedback> listOfFeedback = feedbackRepo.findAll();
+		return listOfFeedback;
+	}
 	
 	
 	
