@@ -13,7 +13,7 @@ import com.flywise.dto.AppUserDto;
 import com.flywise.pojos.AppUser;
 import com.flywise.repository.FeedbackRepository;
 import com.flywise.service.IAppUserService;
-import com.udaan.service.IFlightService;
+import com.flywise.service.IFlightService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
