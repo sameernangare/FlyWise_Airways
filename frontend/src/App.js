@@ -25,7 +25,11 @@ import { PastBookings } from "./UserPages/PastBookings";
 import { PostFeedback } from "./UserPages/PostFeedback";
 import { GetUserFeedback } from "./UserPages/GetUserFeedback";
 import { UserAnalytics } from "./UserPages/UserAnalytics";
+import { GetFeedback } from "./pages/GetFeedback";
 import { Analytics } from "./pages/Analytics";
+import Checkout from "./UserPages/Checkout";
+import FlightCancellation from "./UserPages/FlightCancellation";
+import { Passengers } from "./pages/Passengers";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -65,6 +69,8 @@ function App() {
             <Route path="/postfeedback" element={<PostFeedback />} />
             <Route path="/getuserfeedback" element={<GetUserFeedback />} />
             <Route path="/useranalytics" element={<UserAnalytics />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/cancelBooking" element={<FlightCancellation />} />
           </Route>
 
           <Route path="/admin" element={<Dashboard />} />

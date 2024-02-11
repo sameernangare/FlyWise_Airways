@@ -1,0 +1,49 @@
+.selectSeats {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+table {
+  border-collapse: collapse;
+  width: 500px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #8b5858;
+}
+
+th {
+  background-color: #2f5a9b;
+  font-size: 1rem;
+}
+
+.selectSeats form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+  margin: auto;
+}
+
+.selectSeats input,
+.selectSeats select {
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.selectSeats input[type="submit"] {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
