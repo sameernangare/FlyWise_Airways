@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flywise.dto.AppUserDto;
 import com.flywise.pojos.AppUser;
+import com.flywise.pojos.Passenger;
 import com.flywise.repository.FeedbackRepository;
 import com.flywise.service.IAppUserService;
 import com.flywise.service.IFlightService;
@@ -39,4 +43,25 @@ public class AdminController {
 						c.getPassword(), c.getPhoneNumber(), c.getGovtId(), c.getGovtIdNumber()))
 				.collect(Collectors.toList());
 	}
+	
+	@GetMapping("/passengers")
+	public ResponseEntity<?> getUsersByFlightId(@RequestParam("fid") int flightId){
+		List<Passenger> listOfPassangers = flightService.getPassengersByFlightId(flightId);
+		if(!listOfPassangers.isEmpty())
+			return new ResponseEntity<List<Passenger>>(listOfPassangers, HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("No Passangers found.", HttpStatus.NO_CONTENT)
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
