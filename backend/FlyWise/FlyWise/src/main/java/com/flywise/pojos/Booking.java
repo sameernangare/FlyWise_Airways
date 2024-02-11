@@ -55,9 +55,9 @@ public class Booking {
 	private Flight flight;
 	
 	//unidirectional
-//	@OneToOne
-//	@JoinColumn(name = "class_id")
-//	private Classes classes;
+	@OneToOne
+	@JoinColumn(name = "class_id")
+	private Classes classes;
 	
 	
 	@JsonIgnore
