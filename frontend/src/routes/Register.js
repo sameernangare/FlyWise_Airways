@@ -29,8 +29,7 @@ const Register = () => {
     govtIdNumber,
   } = formData;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (event) => {
     event.preventDefault();

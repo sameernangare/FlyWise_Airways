@@ -3,21 +3,21 @@ package com.flywise.pojos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.OneToMany;
-
 import javax.persistence.Table;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -82,7 +82,7 @@ public class AppUser {
 		this.govtIdNumber = govtIdNumber;
 	}
 	
-	
+	//This User class is inherited from UserDetails
 	public User toUser() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
 		User user = new User(email, password, 

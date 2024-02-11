@@ -1,4 +1,3 @@
-
 package com.flywise.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,8 @@ import com.flywise.dto.AppUserDto;
 import com.flywise.exception.UserException;
 import com.flywise.service.IAppUserService;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@CrossOrigin
 public class AppUserController {
 	
 	@Autowired
@@ -37,4 +36,3 @@ public class AppUserController {
 		
 	}
 }
-
