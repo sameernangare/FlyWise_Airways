@@ -1,3 +1,4 @@
+
 package com.flywise.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
