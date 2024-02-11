@@ -14,5 +14,5 @@ public interface IAppUserService {
 	public List<AppUser> fetchAllUsers();
 	void registerUser(AppUserDto appUserDto) throws UserException;
 	 
-	CustomDto confirmBooking(int bid);
+//	CustomDto confirmBooking(int bid);
 }

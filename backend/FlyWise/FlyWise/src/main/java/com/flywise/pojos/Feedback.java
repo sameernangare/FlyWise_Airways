@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,14 +31,15 @@ public class Feedback {
 	@Column(name = "feedback", length = 500)
 	private String feedback;
 	
+	//@JsonBackReference
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private AppUser appUser;
-	
-	
+
 	@Override
 	public String toString() {
 		return "Feedback [feedbackId=" + feedbackId + ", feedback=" + feedback + "]";
 	}
+	
 }
