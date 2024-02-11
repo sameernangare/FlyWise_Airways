@@ -1,6 +1,5 @@
 package com.flywise.exception;
 
-
 @SuppressWarnings("serial")
 public class UserException extends Exception {
 
