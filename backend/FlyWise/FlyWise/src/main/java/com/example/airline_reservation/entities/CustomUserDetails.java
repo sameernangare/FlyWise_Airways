@@ -1,5 +1,8 @@
-package com.flywise.models;
+package com.example.airline_reservation.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,9 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -17,7 +23,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.isAdmin() ? List.of(new SimpleGrantedAuthority("ADMIN")) : List.of(new SimpleGrantedAuthority("USER"));
+        return user.isAdmin() ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN")) : List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
