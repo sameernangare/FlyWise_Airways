@@ -39,16 +39,12 @@ const Register = () => {
         USER_BASE_REST_API_URI + `/register`,
         formData
       );
-      console.log(response.data);
-      toast.success("Registration Successful.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      console.log(response.data + "<>><");
+      toast.success("Registration Successful.");
       navigate("/login");
     } catch (error) {
       if (error.response.status === 404) {
-        toast.error(`${error.response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(`${error.response.data}`);
       }
     }
     // Call register function or API to register user

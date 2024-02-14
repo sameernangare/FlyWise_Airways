@@ -39,6 +39,7 @@ function SignIn() {
 
     try {
       const response = await axios.post(BASE_URL + `/login`, cred);
+      console.log(response.data);
       const token = response.data.token;
       const userId = response.data.userId;
       const role = response.data.role;
@@ -60,18 +61,14 @@ function SignIn() {
 
       //Bookflight
       if (sessionStorage.getItem("jwtToken") && sessionStorage.getItem("fid")) {
-        toast.success("Login Successful.", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success("Login Successful.");
         dispatch({ type: "USER", payload: true });
         navigate("/selectseat");
       }
 
       //Home page
       else if (sessionStorage.getItem("role") === "ROLE_USER") {
-        toast.success("Login Successful.", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success("Login Successful.");
         dispatch({ type: "USER", payload: true });
         navigate("/");
       }
@@ -83,16 +80,12 @@ function SignIn() {
       ) {
         dispatch({ type: "ADMIN", payload: true });
 
-        toast.success("Login Successful.", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success("Login Successful.");
         navigate(`/admin`);
       }
     } catch (error) {
       if (error.response.status === 404) {
-        toast.error("Invalid Credentials.", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error("Invalid Credentials.");
       }
     }
   };
