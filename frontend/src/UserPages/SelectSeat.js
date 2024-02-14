@@ -41,9 +41,7 @@ const SelectSeat = () => {
       sessionStorage.setItem("cls", classes);
       navigate("/addPassengers");
     } catch (error) {
-      toast.error(`${error.response.data}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(`${error.response.data}`);
     }
   };
 

@@ -28,12 +28,14 @@ function BookFlight() {
     fetchCities();
   }, []);
 
+ 
+
   const handleSearch = async (event) => {
     event.preventDefault();
 
     try {
       const response = await publicRequest.get(
-        `/fetch?src=${src}&dest=${dest}&dt=${dt}`
+        `/flight/fetch?src=${src}&dest=${dest}&dt=${dt}`
       );
       setFlights(response.data);
     } catch (error) {
