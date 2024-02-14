@@ -13,4 +13,3 @@ public interface IAppUserService {
 	void registerUser(AppUserDto appUserDto) throws UserException;
 	 
 }
-

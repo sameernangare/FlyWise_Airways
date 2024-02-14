@@ -4,6 +4,7 @@ import { publicRequest } from "../Constants";
 import "../styles/SearchBox.css";
 import { toast } from "react-toastify";
 import UserSidebar from "../components/UserSidebar";
+import axios from "axios";
 
 function BookFlight() {
   const [src, setsrc] = useState("");
@@ -16,12 +17,12 @@ function BookFlight() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await publicRequest.get(`/cities`);
+        // const response = await publicRequest.get(`/cities`);
+        const response = await axios.get(`http://localhost:8080/cities`);
+        
         setCities(response.data);
       } catch (error) {
-        toast.error(`${error.response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(`${error.response.data}`);
       }
     };
 
@@ -37,13 +38,11 @@ function BookFlight() {
       );
       setFlights(response.data);
     } catch (error) {
-      toast.error(`${error.response.data}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(`${error.response.data}`);
     }
   };
 
-  //sessionStorage.setItem('flight', flights)
+  // sessionStorage.setItem('flight', flights)
 
   const handleBook = async (flightId) => {
     sessionStorage.setItem("fid", flightId);

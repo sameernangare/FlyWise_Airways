@@ -46,6 +46,4 @@ public class AppUserServiceImpl implements IAppUserService {
 		}
 	}
 	
-
 }
-
