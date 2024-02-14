@@ -22,9 +22,7 @@ function BookFlight() {
         
         setCities(response.data);
       } catch (error) {
-        toast.error(`${error.response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(`${error.response.data}`);
       }
     };
 
@@ -40,13 +38,11 @@ function BookFlight() {
       );
       setFlights(response.data);
     } catch (error) {
-      toast.error(`${error.response.data}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(`${error.response.data}`);
     }
   };
 
-  sessionStorage.setItem('flight', flights)
+  // sessionStorage.setItem('flight', flights)
 
   const handleBook = async (flightId) => {
     sessionStorage.setItem("fid", flightId);
