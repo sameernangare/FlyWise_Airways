@@ -41,9 +41,7 @@ const SelectSeat = () => {
       sessionStorage.setItem("cls", classes);
       navigate("/addPassengers");
     } catch (error) {
-      toast.error(`${error.response.data}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(`${error.response.data}`);
     }
   };
 
@@ -55,6 +53,7 @@ const SelectSeat = () => {
             <h1>Booking Details</h1>
 
             <table>
+              <tbody>
               <tr>
                 <th>Source : </th>
                 <td>{selectedFlight.source}</td>
@@ -131,6 +130,7 @@ const SelectSeat = () => {
                   </select>
                 </td>
               </tr>
+              </tbody>
             </table>
             <input type="submit" value="Book Now"></input>
           </form>

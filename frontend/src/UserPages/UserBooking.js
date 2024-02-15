@@ -37,9 +37,7 @@ function UserBooking() {
       );
       navigate(`/confirmBooking`);
     } catch (error) {
-      toast.error(`${error.response.data}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(`${error.response.data}`);
     }
   };
 

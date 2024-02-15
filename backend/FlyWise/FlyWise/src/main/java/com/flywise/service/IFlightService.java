@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.flywise.dto.FlightDto;
 import com.flywise.exception.FlightException;
+import com.flywise.pojos.City;
 import com.flywise.pojos.Flight;
 import com.flywise.pojos.Passenger;
 
@@ -24,4 +25,5 @@ public interface IFlightService {
 	List<Flight> fetchFlightsWithCondition(String source, String destination, LocalDate travelDate) throws FlightException;
 	
 	List<Passenger> getPassengersByFlightId(int flightId);
+	
 }
