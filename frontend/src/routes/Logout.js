@@ -8,9 +8,7 @@ function Logout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    toast.success("Logged Out Successfully.", {
-      position: toast.POSITION.TOP_CENTER,
-    });
+    toast.success("Logged Out Successfully.");
 
     if (sessionStorage.getItem("role") === "ROLE_USER")
       dispatch({ type: "USER", payload: false });

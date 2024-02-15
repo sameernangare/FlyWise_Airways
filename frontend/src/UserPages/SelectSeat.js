@@ -53,6 +53,7 @@ const SelectSeat = () => {
             <h1>Booking Details</h1>
 
             <table>
+              <tbody>
               <tr>
                 <th>Source : </th>
                 <td>{selectedFlight.source}</td>
@@ -129,6 +130,7 @@ const SelectSeat = () => {
                   </select>
                 </td>
               </tr>
+              </tbody>
             </table>
             <input type="submit" value="Book Now"></input>
           </form>
