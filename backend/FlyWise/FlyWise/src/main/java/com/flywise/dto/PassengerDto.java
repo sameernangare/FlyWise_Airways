@@ -1,8 +1,5 @@
 package com.flywise.dto;
 
-
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ public class PassengerDto {
 	private String passengerName;
 	
 	private String gender;
+	
 	private int age;
 	 
 	private String seatNumber;
@@ -31,6 +29,5 @@ public class PassengerDto {
 		this.gender = gender;
 		this.age = age;
 	}
-	 
 	
 }

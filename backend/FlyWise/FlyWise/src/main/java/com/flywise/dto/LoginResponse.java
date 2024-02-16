@@ -11,9 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LoginResponse {
 
-    private String token;
-    private int userId;
-    private String role;
-    private String firstName;
-    // getters and setters
+	    private String token;
+	    
+	    private int userId;
+	    
+	    private String role;
+	    
+	    private String firstName;
 }
