@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -51,7 +50,6 @@ public class Passenger {
 	@JoinColumn(name = "flight_id")
 	private Flight flight;
 	
-	
 
 	public Passenger(String passengerName, String gender, int age, String seatNumber) {
 		super();
@@ -61,6 +59,7 @@ public class Passenger {
 		this.seatNumber = seatNumber;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Passenger [passengerId=" + passengerId + ", passengerName=" + passengerName + ", gender=" + gender

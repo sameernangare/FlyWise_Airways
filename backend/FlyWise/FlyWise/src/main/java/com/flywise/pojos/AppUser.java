@@ -17,7 +17,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,7 +56,7 @@ public class AppUser {
 	
 	@Column(name = "role", length = 25)
 	private String role; 
-
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
 	private List<Booking> bookingList = new ArrayList<Booking>();
@@ -69,6 +68,7 @@ public class AppUser {
 	@JsonIgnore
 	@OneToMany(mappedBy = "appUser")
 	private List<Feedback> feedbackList= new ArrayList<>();
+	
 	
 	public AppUser(String firstName, String lastName, String email, String password, String phoneNumber,
 			String govtId, String govtIdNumber) {
@@ -82,13 +82,14 @@ public class AppUser {
 		this.govtIdNumber = govtIdNumber;
 	}
 	
-	//This User class is inherited from UserDetails
+	
 	public User toUser() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
 		User user = new User(email, password, 
 				Collections.singletonList(authority));
 		return user;
 	}
+	
 	
 	@Override
 	public String toString() {

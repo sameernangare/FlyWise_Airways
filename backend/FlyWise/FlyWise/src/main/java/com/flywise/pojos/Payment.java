@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -56,6 +55,7 @@ public class Payment {
 	@JoinColumn(name = "user_id")
 	private AppUser appUser;
 
+	
 	public Payment(double transactionNumber, int paymentStatus, LocalDate paymentDate, double totalPayment) {
 		super();
 		this.transactionNumber = transactionNumber;
@@ -63,7 +63,5 @@ public class Payment {
 		this.paymentDate = paymentDate;
 		this.totalPayment = totalPayment;
 	}
-
-	
 	
 }

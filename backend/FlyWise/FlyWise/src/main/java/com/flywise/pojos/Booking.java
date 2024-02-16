@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -58,11 +57,10 @@ public class Booking {
 	@JoinColumn(name = "flight_id")
 	private Flight flight;
 	
-	//unidirectional
+	// Unidirectional
 	@OneToOne
 	@JoinColumn(name = "class_id")
 	private Classes classes;
-	
 	
 	@JsonIgnore
 	@OneToOne
@@ -73,6 +71,7 @@ public class Booking {
 	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
 	private List<Passenger> passengers = new ArrayList<Passenger>();
 
+	
 	public Booking(int numberOfBookedSeats, int bookingStatus, int paymentStatus, LocalDate bookingDate) {
 		super();
 		this.numberOfSeatsToBook = numberOfBookedSeats;
@@ -81,6 +80,7 @@ public class Booking {
 		this.bookingDate = bookingDate;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Booking [bookingId=" + bookingId + ", numberOfBookedSeats=" + numberOfSeatsToBook + ", bookingStatus="

@@ -51,6 +51,7 @@ public class Cancellation {
 		this.cancellationDate = cancellationDate;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Cancellation [cancellationId=" + cancellationId + ", refundAmount=" + refundAmount + ", reason="
