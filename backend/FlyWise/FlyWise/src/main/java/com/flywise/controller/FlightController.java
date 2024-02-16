@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,77 +27,126 @@ import com.flywise.service.IFlightService;
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
-
+	
 	@Autowired
 	private IFlightService flightService;
+
+//--------------------------------------------------------------------------------------------------------------------------
 	
-	// Adding Flight
+	// adding new flight
+	
 	@PostMapping(value = "/new", consumes = { "application/xml", "application/json" })
 	public String addFlight(@RequestBody FlightDto flightDto) {
+
 		try {
+			
 			flightService.addFlight(flightDto);
-		}catch (FlightException e) {
-			return ""+e.getMessage();
+			
+		} catch (FlightException e) {
+			
+			return "" + e.getMessage();
 		}
-		return "Flight Added Successfully";
+		
+		return "Flight added successfully";
 	}
 	
+//--------------------------------------------------------------------------------------------------------------------------
+	
+	// display all flights
+	
+	@GetMapping(value = "/all", produces = "application/json")
+	public List<FlightDto> showAllFlights() {
+		
+		List<Flight> flights = flightService.fetchAllFlights();
+		
+		return flights.stream()
+						.map(c -> new FlightDto(c.getFlightId(), c.getSource(), c.getDestination(), c.getTravelDate(),
+								c.getArrivalTime(), c.getDepartureTime(), c.getEconomyFare(), c.getFirstClassFare(),
+								c.getBusinessFare(), c.getAvailableSeats()))
+						.collect(Collectors.toList());
+	}
+
+//--------------------------------------------------------------------------------------------------------------------------
+	
 	// remove a flight
-		@DeleteMapping(value = "/remove")
-		public ResponseEntity<?> removeFlight(@RequestParam("fid") int flightId) {
-			flightService.removeFlight(flightId);
+	
+	@DeleteMapping(value = "/remove")
+	public ResponseEntity<?> removeFlight(@RequestParam("fid") int flightId) {
+		
+		flightService.removeFlight(flightId);
+		
+		return new ResponseEntity<String>("Requested flight with id " + flightId + " has been removed.",HttpStatus.OK);
+	}
+	
+//--------------------------------------------------------------------------------------------------------------------------
+	
+	// update a flight
+	
+	@PutMapping(value = "/update", produces = "application/json")
+	public String updateFlight(@RequestBody FlightDto flightDto) {
+		
+		try {
 			
+			flightService.updateFlight(flightDto);
 			
-			return new ResponseEntity<String>("Requested flight with id " + flightId + " has been removed.",HttpStatus.OK);
+			return "Requested flight has been updated.";
 			
+		} catch (FlightException e) {
+			
+			return "" + e.getMessage();
 		}
+	}
+
+//--------------------------------------------------------------------------------------------------------------------------
+	
+	// search a flight by flightId
+	
+	@GetMapping(value = "/get", produces = "application/json")
+	public FlightDto searchFlight(@RequestParam("fid") int flightId) {
 		
+		Flight getFlight = flightService.getFlightById(flightId);
 		
-		// update a flight
-		@PutMapping(value = "/update", produces = "application/json")
-		public String updateFlight(@RequestBody FlightDto flightDto) {
-			try {
-				flightService.updateFlight(flightDto);
-				return "Requested flight has been updated.";
-			} catch (FlightException e) {
+		return new FlightDto(getFlight.getFlightId(), getFlight.getSource(), getFlight.getDestination(),
+				getFlight.getTravelDate(), getFlight.getArrivalTime(), getFlight.getDepartureTime(),
+				getFlight.getEconomyFare(), getFlight.getFirstClassFare(), getFlight.getBusinessFare(),
+				getFlight.getAvailableSeats());
+	}
+
+//--------------------------------------------------------------------------------------------------------------------------
+	
+	// search flight with source, destination, travelDate
+	
+	@GetMapping(value = "/fetch", produces = "application/json")
+	public ResponseEntity<?> searchFlightByCondition(@RequestParam("src") String source,
+													@RequestParam("dest") String destination,
+													@RequestParam("dt") String date) {
+		
+		try {
+			
+			LocalDate travelDate = LocalDate.parse(date);
+			
+			List<Flight> correctFlights=new ArrayList<>();
+			
+			if(travelDate.isAfter(LocalDate.now()) || travelDate.isEqual(LocalDate.now())) {
 				
-				return "" + e.getMessage();
-			}
-		}
-		
-		// search a flight by flightId
-		@GetMapping(value = "/get", produces = "application/json")
-		public FlightDto searchFlight(@RequestParam("fid") int flightId) {
-			Flight getFlight = flightService.getFlightById(flightId);
-			return new FlightDto(getFlight.getFlightId(), getFlight.getSource(), getFlight.getDestination(),
-					getFlight.getTravelDate(), getFlight.getArrivalTime(), getFlight.getDepartureTime(),
-					getFlight.getEconomyFare(), getFlight.getFirstClassFare(), getFlight.getBusinessFare(),
-					getFlight.getAvailableSeats());
-		}
-		
-		// search flight with source, destination, travelDate
-		@GetMapping(value = "/fetch", produces = "application/json")
-		public ResponseEntity<?> searchFlightByCondition(@RequestParam("src") String source,
-				@RequestParam("dest") String destination, @RequestParam("dt") String date) {
-			try {
-				LocalDate travelDate = LocalDate.parse(date);
 				List<Flight> flights = flightService.fetchFlightsWithCondition(source, destination, travelDate);
-				List<Flight> correctFlights=new ArrayList<>();
-				if(travelDate.isAfter(LocalDate.now())|| travelDate.isEqual(LocalDate.now())) {
-				for(int i= 0;i<flights.size();i++) {
-				if(travelDate.isAfter(LocalDate.now())|| LocalTime.now().isBefore(flights.get(i).getDepartureTime())) {
-					correctFlights.add(flights.get(i));
-				}	
-				}
-				return new ResponseEntity<List<Flight>>(correctFlights, HttpStatus.OK);
-				}
-				else 
-					return new ResponseEntity<String>("Cannot pick older date",HttpStatus.BAD_REQUEST);
-			} catch (FlightException e) {
 				
-				return new ResponseEntity<String>("Flight not found.", HttpStatus.NOT_FOUND);
-			}
+				for(int i= 0;i<flights.size();i++) {
+					
+					if(travelDate.isAfter(LocalDate.now()) || LocalTime.now().isBefore(flights.get(i).getDepartureTime())) {
+						correctFlights.add(flights.get(i));
+					}	
+				}
+				
+				return new ResponseEntity<List<Flight>>(correctFlights, HttpStatus.OK);
+				
+			} else 
+				
+				return new ResponseEntity<String>("Cannot pick older date",HttpStatus.BAD_REQUEST);
+			
+		} catch (FlightException e) {
+			
+			return new ResponseEntity<String>("Flight not found.", HttpStatus.NOT_FOUND);
 		}
-		
-		
+	}
 }

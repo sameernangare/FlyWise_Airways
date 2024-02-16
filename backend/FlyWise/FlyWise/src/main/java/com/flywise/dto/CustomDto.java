@@ -1,6 +1,5 @@
 package com.flywise.dto;
 
-
 import java.util.List;
 
 import lombok.Getter;
@@ -13,9 +12,13 @@ import lombok.Setter;
 public class CustomDto {
 
 	private AppUserDto appUserDto;
+	
 	private BookingDto bookingDto;
+	
 	private FlightDto flightDto;
+	
 	private List<PassengerDto> listOfPassengerDto;
+	
 	private double totalPayment;
 	
 	public CustomDto(FlightDto flightDto, List<PassengerDto> listOfPassengerDto, double totalPayment) {
@@ -26,4 +29,3 @@ public class CustomDto {
 	} 
 	
 }
-	

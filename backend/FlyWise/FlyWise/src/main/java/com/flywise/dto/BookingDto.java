@@ -13,22 +13,27 @@ import lombok.Setter;
 public class BookingDto {
 
 	private int bookingId;
-	private int numberOfSeatsToBook;
-	private int bookingStatus;
-	private int paymentStatus;
-	private LocalDate bookingDate;
 	
+	private int numberOfSeatsToBook;
+	
+	private int bookingStatus;
+	
+	private int paymentStatus;
+	
+	private LocalDate bookingDate;
 	
 	private AppUserDto appUserDto;
 	
 	private FlightDto flightDto;
+	
 	private int classId;
+	
 	private List<PassengerDto> listOfPassengers; 
+	
+	
 	public BookingDto(int numberOfSeatsToBook, int classId) {
 		super();
 		this.numberOfSeatsToBook = numberOfSeatsToBook;
 		this.classId = classId;
 	}
-	
-	
 }

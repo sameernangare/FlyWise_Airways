@@ -18,13 +18,9 @@ export const FlightDetails = () => {
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 400) {
-          toast.error(`${error.response.data}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data}`);
         } else if (error.response.status === 500)
-          toast.error(`${error.response.data.message}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data.message}`);
       });
   };
 
@@ -37,9 +33,7 @@ export const FlightDetails = () => {
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 400) {
-          toast.error(`${error.response.data}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data}`);
         }
       });
   };
@@ -118,7 +112,6 @@ export const FlightDetails = () => {
         <table>
           <tr>
             <th>Booking Id</th>
-            <th>User Id </th>
             <th>Seats Booked</th>
             <th>Booking Date</th>
             <th>Booking Status</th>

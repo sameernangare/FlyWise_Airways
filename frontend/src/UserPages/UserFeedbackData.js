@@ -11,12 +11,6 @@ export const UserFeedbackData = ({ feedback }) => {
           <tr key={feedbackId}>
             <td>{feedbackId}</td>
             <td>{feedback}</td>
-
-            <td>
-              <button type="button" class="btn btn-light">
-                View
-              </button>
-            </td>
           </tr>
         );
       })}

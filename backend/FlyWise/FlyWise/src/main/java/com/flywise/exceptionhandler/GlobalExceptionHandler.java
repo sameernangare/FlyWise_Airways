@@ -17,8 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.flywise.dto.ApiResponse;
 
 
-
-
 @ControllerAdvice
 //singleton n eager
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -26,17 +24,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		
 		System.out.println("in  global exc handler : validation failures");
+		
 		List<FieldError> list = ex.getFieldErrors();
+		
 		Map<String, String> map = list.stream()
-		.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+										.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+		
 		return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
 	}
+	
 	//add a method to handle ANY Business exception
 	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<?> handleRuntimeException(RuntimeException e)
-	{
+	public ResponseEntity<?> handleRuntimeException(RuntimeException e){
+		
 		System.out.println("in run time exc handler");
+		
 		return new ResponseEntity<>(new ApiResponse(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

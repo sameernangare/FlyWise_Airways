@@ -29,7 +29,8 @@ const Register = () => {
     govtIdNumber,
   } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -55,10 +56,10 @@ const Register = () => {
       <div className="middleContent">
         <div className="container">
           <h1>Sign Up Here</h1>
-
+          <br />
           <form className="add-flight-form" onSubmit={(e) => onSubmit(e)}>
             <div>
-              <label htmlFor="email">Email: </label>
+              <label htmlFor="email">Email </label>
               <br />
               <input
                 type="email"
@@ -71,7 +72,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="password">Password: </label>
+              <label htmlFor="password">Password </label>
               <br />
               <input
                 type="password"
@@ -85,7 +86,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="firstName">First Name: </label>
+              <label htmlFor="firstName">First Name </label>
               <br />
               <input
                 type="text"
@@ -98,7 +99,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="lastName">Last Name: </label>
+              <label htmlFor="lastName">Last Name </label>
               <br />
               <input
                 type="text"
@@ -110,7 +111,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="phoneNumber">Mobile Number: </label>
+              <label htmlFor="phoneNumber">Mobile Number </label>
               <br />
               <input
                 type="text"
@@ -122,7 +123,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="govtId">Govt. ID: </label>
+              <label htmlFor="govtId">Govt. ID </label>
               <br />
               <input
                 type="text"
@@ -135,7 +136,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="govtIdNumber">Govt. ID Number: </label>
+              <label htmlFor="govtIdNumber">Govt. ID Number </label>
               <br />
               <input
                 type="text"

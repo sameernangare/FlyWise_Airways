@@ -32,6 +32,7 @@ public class AppUserDto {
 	
 	private String govtIdNumber;
 	
+	
 	public AppUserDto(String firstName, String lastName, String email, String password, String phoneNumber,
 			String govtId, String govtIdNumber) {
 		super();

@@ -2,6 +2,7 @@ package com.flywise.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,22 +11,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+// import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
+	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 	}
+	
 	
 	@Bean
 	@Override
@@ -33,22 +38,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 	
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 		//return NoOpPasswordEncoder.getInstance(); // plain passwords in db -- not recommended.
 	}
 	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-//			.antMatchers("/admin/**").hasRole("ADMIN")// highest privilege 
-//			.antMatchers("/flight/**").hasRole("ADMIN")	
-//			.antMatchers("/user/**").hasRole("USER")
-//			.antMatchers("/book/**").hasRole("USER")
+			.antMatchers("/admin/**").hasRole("ADMIN")// highest privilege 
+			.antMatchers(HttpMethod.GET,"/flight/**").hasAnyRole("ADMIN", "USER")	
+			.antMatchers("/flight/**").hasRole("ADMIN")	
+			.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/book/**").hasAnyRole("USER", "ADMIN")
 			.antMatchers("/", "/login","/register","/fetch").permitAll()		// lowest privilege
-			.antMatchers("/**").permitAll()
+//			.antMatchers("/**").permitAll()
 			.and()
 			.cors()		// enable CORS i.e. allow to create "Access-Control-Allow-Origin" = "*" header by @CrossOrigin
 			.and()

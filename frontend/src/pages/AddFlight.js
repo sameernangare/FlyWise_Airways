@@ -5,10 +5,12 @@ import { useState, useEffect } from "react";
 import FlightService from "../services/FlightService";
 import UserService from "../services/UserService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const AddFlight = () => {
   const [sourceCities, setSourceCities] = useState([]);
   const [destinationCities, setDestinationCities] = useState([]);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     source: "",
@@ -45,9 +47,9 @@ export const AddFlight = () => {
     // Make a POST request to your API to add the new flight
     FlightService.addFlight(formData)
       .then((response) => {
-        toast.success(`${response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success(`${response.data}`);
+
+        navigate("/dashboard");
 
         // Clear the form data
         setFormData({
@@ -64,17 +66,15 @@ export const AddFlight = () => {
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 400) {
-          toast.error(`${error.response.data}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        } else if (error.response.status === 500)
-          toast.error(`${error.response.data.message}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        else if (error.response.status === 403)
-          toast.error(`Forbidden access to admin pages`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data}`);
+          navigate("/");
+        } else if (error.response.status === 500) {
+          toast.error(`${error.response.data.message}`);
+          navigate("/");
+        } else if (error.response.status === 403) {
+          toast.error(`Forbidden access to admin pages`);
+          navigate("/");
+        }
       });
   };
 

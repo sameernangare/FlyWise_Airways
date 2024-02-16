@@ -45,10 +45,6 @@ export const GetFeedback = () => {
           <tr>
             <th>FeedbackId</th>
             <th>Feedback</th>
-            <th>UserId</th>
-            <th>User FirstName</th>
-            <th>User LastName</th>
-            {/* <th>Action</th> */}
           </tr>
           <tbody>
             <FeedbackData feedback={feedback} />

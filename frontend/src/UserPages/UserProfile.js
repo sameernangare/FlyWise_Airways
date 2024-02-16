@@ -38,15 +38,11 @@ export const UserProfile = () => {
       );
 
       console.log(response.data);
-      toast.success("Registration Successful.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success("Registration Successful.");
       navigate("/login");
     } catch (error) {
       if (error.response.status === 404) {
-        toast.error(`${error.response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(`${error.response.data}`);
       }
     }
   };

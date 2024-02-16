@@ -6,9 +6,13 @@ import UserSidebar from "../components/UserSidebar";
 
 function ConfirmBooking() {
   const [data, setData] = useState(null);
+
   const bid = sessionStorage.getItem("bid");
+
   const BASE_URL = "http://localhost:8080";
+
   const token = sessionStorage.getItem("jwtToken");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +40,7 @@ function ConfirmBooking() {
             <div className="row">
               <div className="col-md-6">
                 <h3>Flight Details : </h3>
+                <br />
                 <table className="table table-striped">
                   <tbody>
                     <tr>
@@ -54,21 +59,17 @@ function ConfirmBooking() {
                     </tr>
 
                     <tr>
-                      <td>Departure Date : </td>
-                      <td>{data.flightDto.travelDate}</td>
+                      <td>Departure Time : </td>
+                      <td>{data.flightDto.departureTime}</td>
                     </tr>
 
                     <tr>
                       <td>Arrival Time : </td>
                       <td>{data.flightDto.arrivalTime}</td>
                     </tr>
-
-                    <tr>
-                      <td>Departure Time : </td>
-                      <td>{data.flightDto.departureTime}</td>
-                    </tr>
                   </tbody>
                 </table>
+                <br />
               </div>
               <div className="col-md-3">
                 <div className="card">
@@ -83,6 +84,7 @@ function ConfirmBooking() {
             </div>
             <div>
               <h3>Passenger Details : </h3>
+              <br />
               <table className="table table-striped">
                 <thead>
                   <tr>
@@ -108,6 +110,7 @@ function ConfirmBooking() {
                 </tbody>
               </table>
             </div>
+            <br />
             <button onClick={handleConfirmation} className="btn btn-primary">
               Confirm Now
             </button>

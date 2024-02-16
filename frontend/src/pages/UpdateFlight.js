@@ -5,9 +5,11 @@ import "../styles/AddFlightStyles.css";
 import { useState } from "react";
 import FlightService from "../services/FlightService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const UpdateFlight = ({ flight }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     flightId: location.state.flight.flightId,
@@ -30,12 +32,12 @@ export const UpdateFlight = ({ flight }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Make a POST request to your API to add the new flight
+    // Make a PUT request to your API to add the new flight
     FlightService.updateFlight(formData)
       .then((response) => {
-        toast.success(`${response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success(`${response.data}`);
+
+        navigate("/dashboard");
 
         // Clear the form data
         setFormData({
@@ -65,7 +67,7 @@ export const UpdateFlight = ({ flight }) => {
       <div className="middleContent">
         <form className="add-flight-form" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="flightId">Flight Id :</label>
+            <label htmlFor="flightId">Flight Id : </label>
             <input
               type="text"
               readOnly
@@ -76,7 +78,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="source">Source City :</label>
+            <label htmlFor="source">Source City : </label>
             <input
               type="text"
               id="source"
@@ -88,7 +90,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="destination">Destination City :</label>
+            <label htmlFor="destination">Destination City : </label>
             <input
               type="text"
               id="destination"
@@ -100,7 +102,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="travelDate">Travel Date :</label>
+            <label htmlFor="travelDate">Travel Date : </label>
             <input
               type="date"
               id="travelDate"
@@ -136,7 +138,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="economyFare">Economy Fare :</label>
+            <label htmlFor="economyFare">Economy Fare : </label>
             <input
               type="number"
               id="economyFare"
@@ -148,7 +150,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="businessFare">Business Fare :</label>
+            <label htmlFor="businessFare">Business Fare : </label>
             <input
               type="number"
               id="businessFare"
@@ -160,7 +162,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="firstClassFare">FirstClass Fare :</label>
+            <label htmlFor="firstClassFare">FirstClass Fare : </label>
             <input
               type="number"
               id="firstClassFare"
@@ -172,7 +174,7 @@ export const UpdateFlight = ({ flight }) => {
           </div>
 
           <div>
-            <label htmlFor="availableSeats">Available Seats :</label>
+            <label htmlFor="availableSeats">Available Seats : </label>
             <input
               type="number"
               id="availableSeats"

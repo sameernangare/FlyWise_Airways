@@ -10,7 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ApiResponse {
+	
 	private String message;
+	
 	private LocalDateTime timestamp;
 
 	public ApiResponse(String message) {

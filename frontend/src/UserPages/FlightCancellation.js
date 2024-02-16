@@ -4,8 +4,11 @@ import UserSidebar from "../components/UserSidebar";
 //import { Form, Button } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function FlightCancellation() {
+  const navigate = useNavigate();
+
   //const bid=parseInt(sessionStorage.getItem('bid'));
   const location = useLocation();
   const bid = parseInt(sessionStorage.getItem("cbid"));
@@ -27,18 +30,12 @@ function FlightCancellation() {
         }
       );
       console.log(response.data);
-      toast.success("Cancellation Successful.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success("Cancellation Successful.");
+      navigate("/");
     } catch (error) {
       if (error.response.status === 404 || error.response.status === 400) {
-        toast.error(`${error.response.data}`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      } else if (error.response.status === 500)
-        toast.error(`Invalid date`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(`${error.response.data}`);
+      } else if (error.response.status === 500) toast.error(`Invalid date`);
     }
   };
 
