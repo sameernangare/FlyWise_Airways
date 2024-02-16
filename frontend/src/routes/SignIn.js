@@ -1,15 +1,16 @@
 import React, { useState, useContext } from "react";
 import "../styles/AddFlightStyles.css";
 import { UserContext } from "../App";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 function SignIn() {
-  const { state, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   //  const location = useLocation();
   const BASE_URL = "http://localhost:8080";
   //   console.log(sessionmStorage.getItem("fid"));
@@ -35,6 +36,7 @@ function SignIn() {
       password: password,
     };
 
+    // To prevents the default form submission behavior (page reload after submit)
     event.preventDefault();
 
     try {
@@ -55,6 +57,8 @@ function SignIn() {
       };
 
       setAuthToken(token);
+
+      // setting a default authorization header for Axios requests
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${sessionStorage.getItem("jwtToken")}`;
@@ -62,14 +66,14 @@ function SignIn() {
       //Bookflight
       if (sessionStorage.getItem("jwtToken") && sessionStorage.getItem("fid")) {
         toast.success("Login Successful.");
-        dispatch({ type: "USER", payload: true });
+        dispatch({ type: "USER", payload: true }); // payload -- authenticated = true
         navigate("/selectseat");
       }
 
       //Home page
       else if (sessionStorage.getItem("role") === "ROLE_USER") {
         toast.success("Login Successful.");
-        dispatch({ type: "USER", payload: true });
+        dispatch({ type: "USER", payload: true }); // payload -- authenticated = true
         navigate("/");
       }
 
@@ -78,9 +82,8 @@ function SignIn() {
         sessionStorage.getItem("jwtToken") &&
         sessionStorage.getItem("role") === "ROLE_ADMIN"
       ) {
-        dispatch({ type: "ADMIN", payload: true });
-
         toast.success("Login Successful.");
+        dispatch({ type: "ADMIN", payload: true }); // payload -- authenticated = true
         navigate(`/admin`);
       }
     } catch (error) {
@@ -92,12 +95,15 @@ function SignIn() {
 
   return (
     <div className="middleContent">
+      <br />
+      <br />
       <div className="container">
         <div className="container-fluid bg-light py-5">
           <div className="row justify-content-center align-items-center">
             <div className="col-md-6 col-lg-4 bg-white rounded shadow p-4">
               <div style={{ justifyContent: "center" }}>
                 <h2 className="text-center">Login here</h2>
+                <br />
                 <form onSubmit={handleSubmit} className="add-flight-form">
                   <div>
                     <label htmlFor="email">Email : </label>
@@ -110,7 +116,7 @@ function SignIn() {
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
-
+                  <br />
                   <div className="form-group">
                     <label htmlFor="password">Password : </label>
                     <input
@@ -139,6 +145,7 @@ function SignIn() {
           </div>
         </div>
       </div>
+      <br />
     </div>
   );
 }
