@@ -33,19 +33,15 @@ import { Passengers } from "./pages/Passengers";
 
 import "react-toastify/dist/ReactToastify.css";
 
-// Importing Context and Reducer for state management
 import { createContext, useReducer } from "react";
 import { initialState, reducer } from "./reducer/UseReducer";
 export const UserContext = createContext();
 
 function App() {
-  // Using the useReducer hook to manage state with the specified reducer function and initial state
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Rendering the main structure of the application
   return (
     <div className="App">
-      {/* Providing the UserContext to the entire application */}
       <UserContext.Provider value={{ state, dispatch }}>
         <Navbar></Navbar>
 
