@@ -5,16 +5,12 @@ export const FeedbackData = ({ feedback }) => {
   return (
     <>
       {feedback.map((currentFeedback) => {
-        const { feedbackId, feedback, userId, firstName, lastName } =
-          currentFeedback;
+        const { feedbackId, feedback } = currentFeedback;
 
         return (
           <tr key={feedbackId}>
             <td>{feedbackId}</td>
             <td>{feedback}</td>
-            <td>{userId}</td>
-            <td>{firstName}</td>
-            <td>{lastName}</td>
             {/*            
             <td>
               <button type="button" class="btn btn-light" >

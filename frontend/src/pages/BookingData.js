@@ -7,18 +7,17 @@ export const BookingData = ({ Bookings }) => {
       {Bookings.map((currentBooking) => {
         const {
           bookingId,
-          userId,
           numberOfSeatsToBook,
           bookingDate,
           bookingStatus,
           paymentStatus,
-          className,
         } = currentBooking;
+
+        const className = currentBooking.classes.classDescription;
 
         return (
           <tr key={bookingId}>
             <td>{bookingId}</td>
-            <td>{userId}</td>
             <td>{numberOfSeatsToBook}</td>
             <td>{bookingDate}</td>
             <td>{bookingStatus}</td>

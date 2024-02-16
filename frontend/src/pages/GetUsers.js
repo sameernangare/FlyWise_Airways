@@ -5,9 +5,11 @@ import AdminService from "../services/AdminService";
 import { UsersData } from "./UsersData";
 import Sidebar from "../components/Sidebar";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const GetUsers = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const getAllUsers = () => {
     AdminService.getAllUsers()
@@ -16,17 +18,15 @@ export const GetUsers = () => {
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 400) {
-          toast.error(`${error.response.data}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        } else if (error.response.status === 500)
-          toast.error(`${error.response.data.message}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        else if (error.response.status === 403)
-          toast.error(`Forbidden access to admin pages`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data}`);
+          navigate("/");
+        } else if (error.response.status === 500) {
+          toast.error(`${error.response.data.message}`);
+          navigate("/");
+        } else if (error.response.status === 403) {
+          toast.error(`Forbidden access to admin pages`);
+          navigate("/");
+        }
       });
   };
 

@@ -16,9 +16,7 @@ export const Passengers = () => {
       })
       .catch((error) => {
         if (error.response.status === 404) {
-          toast.error(`${error.response.data}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data}`);
         }
       });
   };
@@ -62,10 +60,10 @@ export const Passengers = () => {
         <table>
           <tr>
             <th>Passenger Id</th>
+            <th>Booking Id</th>
             <th>Passenger Name</th>
             <th>Gender</th>
             <th>Age</th>
-            <th>Booking Id</th>
           </tr>
           <tbody>
             <PassengerData passengers={passengers} />
