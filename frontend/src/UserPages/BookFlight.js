@@ -11,14 +11,14 @@ function BookFlight() {
   const [dest, setdest] = useState("");
   const [dt, setdt] = useState("");
   const [flights, setFlights] = useState([]);
-  const navigate = useNavigate();
   const [cities, setCities] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCities = async () => {
       try {
         const response = await publicRequest.get(`/cities`);
-        
+
         setCities(response.data);
       } catch (error) {
         toast.error(`${error.response.data}`);
@@ -28,14 +28,12 @@ function BookFlight() {
     fetchCities();
   }, []);
 
- 
-
   const handleSearch = async (event) => {
     event.preventDefault();
 
     try {
       const response = await publicRequest.get(
-        `/flight/fetch?src=${src}&dest=${dest}&dt=${dt}`
+        `/fetch?src=${src}&dest=${dest}&dt=${dt}`
       );
       setFlights(response.data);
     } catch (error) {
@@ -132,7 +130,7 @@ function BookFlight() {
             </div>
           </div>
 
-          <hr />
+          <br />
 
           <div className="container">
             <h4 className="text-center">Available Flights</h4>

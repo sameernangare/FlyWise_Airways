@@ -4,11 +4,13 @@ import "../styles/UserFeedbackStyles.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const PostFeedback = () => {
   const [feedback, setFeedback] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
   const BASE_URL = "http://localhost:8080";
 
   const handleMessageChange = (event) => {
@@ -27,13 +29,10 @@ export const PostFeedback = () => {
       const response = axios.post(
         BASE_URL + `/user/feedback?uid=${uid}&feedback=${feedback}`
       );
-      toast.success(`Feedback was posted successfully.`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success(`Feedback was posted successfully.`);
+      navigate("/");
     } catch (error) {
-      toast.error("Feedback was not posted. Try again.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error("Feedback was not posted. Try again.");
     }
   };
 

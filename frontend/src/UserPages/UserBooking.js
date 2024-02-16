@@ -7,14 +7,21 @@ import UserSidebar from "../components/UserSidebar";
 
 function UserBooking() {
   const [passengers, setPassengers] = useState([]);
+
   const bookingId = sessionStorage.getItem("bid");
+
+  // console.log(`bookingID =  ${bookingId}`);
+
   const navigate = useNavigate();
+
   const numberOfSeatsToBook = parseInt(sessionStorage.getItem("numSeats"));
-  const location = useLocation();
+
   // const selectedFlight = location.state.selectedFlight;
   const selectedFlight = JSON.parse(sessionStorage.getItem("selectedFlight"));
+
   // const cls = location.state.cls;
-  const cls = sessionStorage.getItem("cls");
+  const cls = sessionStorage.getItem("class");
+
   const BASE_URL = "http://localhost:8080";
 
   const handlePassengerChange = (event, index) => {
@@ -24,17 +31,21 @@ function UserBooking() {
       ...newPassengers[index],
       [name]: value,
     };
+
     setPassengers(newPassengers);
   };
 
   const handleSubmit = async (event) => {
-    const token = sessionStorage.getItem("jwtToken");
+    //const token = sessionStorage.getItem("jwtToken");
+
     event.preventDefault();
+
     try {
       const response = await axios.post(
-        BASE_URL + `/book/passengers?bookingId=${bookingId}`,
+        BASE_URL + `/book/passengers?bid=${bookingId}`,
         passengers
       );
+
       navigate(`/confirmBooking`);
     } catch (error) {
       toast.error(`${error.response.data}`);
@@ -43,6 +54,7 @@ function UserBooking() {
 
   const renderPassengerForm = () => {
     const forms = [];
+
     for (let i = 0; i < numberOfSeatsToBook; i++) {
       forms.push(
         <div className="mx-auto col-md-6" key={i}>
@@ -55,15 +67,17 @@ function UserBooking() {
            </div>
          </div>'
           ></h1>
+
           <table className="table table-bordered col-md-6">
             <thead>
               <tr>
                 <th colSpan="2">Passenger {i + 1} Details</th>
               </tr>
             </thead>
+
             <tbody>
               <tr>
-                <td>Name:</td>
+                <td>Name :</td>
                 <td>
                   <input
                     type="text"
@@ -75,7 +89,7 @@ function UserBooking() {
                 </td>
               </tr>
               <tr>
-                <td>Gender:</td>
+                <td>Gender :</td>
                 <td>
                   <select
                     className="form-select"
@@ -91,7 +105,7 @@ function UserBooking() {
                 </td>
               </tr>
               <tr>
-                <td>Age:</td>
+                <td>Age :</td>
                 <td>
                   <input
                     type="number"
@@ -104,6 +118,8 @@ function UserBooking() {
               </tr>
             </tbody>
           </table>
+          <br />
+          <br />
         </div>
       );
     }
@@ -122,31 +138,33 @@ function UserBooking() {
             </thead>
             <tbody>
               <tr>
-                <td>Source:</td>
+                <td>Source :</td>
                 <td>{selectedFlight?.source}</td>
               </tr>
               <tr>
-                <td>Destination:</td>
+                <td>Destination :</td>
                 <td>{selectedFlight?.destination}</td>
               </tr>
               <tr>
-                <td>Date:</td>
+                <td>Date :</td>
                 <td>{selectedFlight?.travelDate}</td>
               </tr>
               <tr>
-                <td>Departure:</td>
+                <td>Departure :</td>
                 <td>{selectedFlight?.departureTime}</td>
               </tr>
               <tr>
-                <td>Arrival:</td>
+                <td>Arrival :</td>
                 <td>{selectedFlight?.arrivalTime}</td>
               </tr>
               <tr>
-                <td>Class:</td>
+                <td>Class :</td>
                 <td>{cls}</td>
               </tr>
             </tbody>
           </table>
+          <br />
+          <br />
 
           <div className="mx-auto col-md-9">{renderPassengerForm()}</div>
         </div>

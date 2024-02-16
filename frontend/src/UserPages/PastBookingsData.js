@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export const PastBookingsData = ({ bookings }) => {
   const navigate = useNavigate();
-  const [bookingId, setBookingId] = useState();
   const handleCancel = (bookingId) => {
     console.log(bookingId);
     sessionStorage.setItem("cbid", JSON.stringify(bookingId));
@@ -15,16 +14,17 @@ export const PastBookingsData = ({ bookings }) => {
       {bookings.map((currentBooking) => {
         const {
           bookingId,
-          source,
-          destination,
           bookingDate,
           numberOfSeatsToBook,
-          totalPayment,
-          className,
+          // totalPayment,
           bookingStatus,
           paymentStatus,
         } = currentBooking;
 
+        const source = currentBooking.flight.source;
+        const destination = currentBooking.flight.destination;
+        // const paymentStatus = currentBooking.payment.totalPayment;
+        const className = currentBooking.classes.classDescription;
         return (
           <tr key={bookingId}>
             <td>{bookingId}</td>
@@ -32,7 +32,6 @@ export const PastBookingsData = ({ bookings }) => {
             <td>{destination}</td>
             <td>{bookingDate}</td>
             <td>{numberOfSeatsToBook}</td>
-            <td>{totalPayment}</td>
             <td>{bookingStatus}</td>
             <td>{className}</td>
             <td>{paymentStatus}</td>

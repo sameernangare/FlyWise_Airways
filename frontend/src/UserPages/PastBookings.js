@@ -16,13 +16,9 @@ export const PastBookings = () => {
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 400) {
-          toast.error(`${error.response.data}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`${error.response.data}`);
         } else if (error.response.status === 500)
-          toast.error(`No succesful booking yet.`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error(`No succesful booking yet.`);
       });
   };
 
@@ -36,13 +32,10 @@ export const PastBookings = () => {
         <h1 style={{ textAlign: "center" }}>
           Past Bookings By {sessionStorage.getItem("fname")}
         </h1>
-
-        <br></br>
-
+        <br />
         <button onClick={handleButton}>Get Bookings</button>
-
-        <br></br>
-
+        <div />
+        <br />
         <table>
           <tr>
             <th>bookingId</th>
@@ -51,7 +44,6 @@ export const PastBookings = () => {
             <th>Booking Date</th>
             <th>Number of Seats</th>
             <th>Booking Status</th>
-            <th>Total Payment</th>
             <th>Class Name</th>
             <th>Payment Status</th>
             <th>Cancel Ticket</th>
