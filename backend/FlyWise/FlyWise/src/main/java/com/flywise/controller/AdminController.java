@@ -8,22 +8,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flywise.dto.AppUserDto;
 import com.flywise.pojos.AppUser;
+import com.flywise.pojos.Booking;
 import com.flywise.pojos.Feedback;
 import com.flywise.pojos.Passenger;
 import com.flywise.repository.FeedbackRepository;
 import com.flywise.service.IAppUserService;
+import com.flywise.service.IBookingService;
 import com.flywise.service.IFlightService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+	
 	@Autowired
 	private IAppUserService appUserService;
 	
@@ -33,40 +37,55 @@ public class AdminController {
 	@Autowired
 	private FeedbackRepository feedbackRepo;
 	
+	@Autowired
+	private IBookingService bookingService;
+	
+//--------------------------------------------------------------------------------------------------------------------------
+	
 	@GetMapping("/getusers")
-	public List<AppUserDto> getAllUsers(){
+	public List<AppUserDto> getAllUsers() {
+		
 		List<AppUser> listOfUsers = appUserService.fetchAllUsers();
 		
-		return listOfUsers
-				.stream()
-				.filter(c -> c.getRole().equals("ROLE_USER"))
-				.map(c -> new AppUserDto(c.getUserId(),c.getFirstName(), c.getLastName(), c.getEmail(),
-						c.getPassword(), c.getPhoneNumber(), c.getGovtId(), c.getGovtIdNumber()))
-				.collect(Collectors.toList());
+		return listOfUsers.stream()
+						.filter(c -> c.getRole().equals("ROLE_USER"))
+						.map(c -> new AppUserDto(c.getUserId(), c.getFirstName(), c.getLastName(), c.getEmail(),
+								c.getPassword(), c.getPhoneNumber(), c.getGovtId(), c.getGovtIdNumber()))
+						.collect(Collectors.toList());
 	}
+	
+//--------------------------------------------------------------------------------------------------------------------------
 	
 	@GetMapping("/passengers")
 	public ResponseEntity<?> getUsersByFlightId(@RequestParam("fid") int flightId){
-		List<Passenger> listOfPassangers = flightService.getPassengersByFlightId(flightId);
-		if(!listOfPassangers.isEmpty())
-			return new ResponseEntity<List<Passenger>>(listOfPassangers, HttpStatus.OK);
+		
+		List<Passenger> listOfPassengers=flightService.getPassengersByFlightId(flightId);
+		
+		if(!listOfPassengers.isEmpty())
+			return new ResponseEntity<List<Passenger>>(listOfPassengers, HttpStatus.OK);
+		
 		else
-			return new ResponseEntity<String>("No Passangers found.", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<String>("No passengers found.", HttpStatus.NO_CONTENT);
 		
 	}
+
+//--------------------------------------------------------------------------------------------------------------------------
 	
 	@GetMapping("/feedback")
-	public List<Feedback> getUserFeedback(){
+	public List<Feedback> getUserFeedback() {
+		
 		List<Feedback> listOfFeedback = feedbackRepo.findAll();
+		
 		return listOfFeedback;
 	}
 	
+//--------------------------------------------------------------------------------------------------------------------------
 	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping("/getbookings")
+	public List<Booking> getBookings(@RequestParam("fid") int flightId){
+		
+		List<Booking> listOfBookings = bookingService.getBookingsByFlightId(flightId);
+		
+		return listOfBookings;
+	}
 }
