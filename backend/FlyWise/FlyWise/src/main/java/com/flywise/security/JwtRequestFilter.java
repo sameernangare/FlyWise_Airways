@@ -20,44 +20,67 @@ import com.flywise.repository.AppUserRepository;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+	
 	@Autowired
 	private JwtUtil jwtUtil;
+	
 	@Autowired
 	private AppUserRepository userDao;
 	
+	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+		
 		// pre-processing
 		String authHeader = request.getHeader("Authorization");
 		boolean validHeader = authHeader != null && authHeader.startsWith("Bearer");
+		
+		
 		User principal = null;
+		
 		if(validHeader) {
+			
 			String token = authHeader.replace("Bearer", "").trim();
+			
 			System.out.println("Token: " + token);
+			
 			String email = jwtUtil.getTokenUsername(token);
+			
 			System.out.println("Email: " + email);
+			
 			AppUser user = userDao.findByEmail(email);
+			
 			if(user != null) {
+				
 				principal = user.toUser();
+				
 				System.out.println("Principal: " + principal);
+				
 				if(!jwtUtil.validateToken(token, principal.getUsername()))
 					principal = null;
 			}
 		}
 		
+		
 		if(principal != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			
 			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+			
 			SecurityContextHolder.getContext().setAuthentication(auth);
+			
 			// call next filter in the chain
 			filterChain.doFilter(request, response);
+			
 			return;
 		}
 		
+		
 		if(validHeader) // token given, but not valid, then return error
 			response.sendError(HttpStatus.UNAUTHORIZED.value());
+		
 		else // if no token, let authorization filter decide
 			filterChain.doFilter(request, response);
+		
 		// post-processing
 	}
 	
