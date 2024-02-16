@@ -31,38 +31,84 @@ import com.flywise.service.IFlightService;
 @RestController
 @RequestMapping("/book")
 public class BookingController {
+
 	@Autowired
-	private IFlightService flightService;
+	private IBookingService bookingService;
 	
 	@Autowired
-	private AppUserRepository userRepo;
+	private IFlightService flightService;
 	
 	@Autowired
 	private ClassesRepository classesRepo;
 	
 	@Autowired
-	private IBookingService bookingService;
+	private AppUserRepository userRepo;
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+	@GetMapping(value = "/details", produces = "application/json")
+	public ResponseEntity<?> bookingDetails(@RequestParam("fid") String fid) {
+		
+		Flight flight = bookingService.getFlightDetails(Integer.parseInt(fid));
+		
+		if (flight != null)
+			return new ResponseEntity<Flight>(flight, HttpStatus.OK);
+		
+		else
+			return new ResponseEntity<String>("Flight you asked for is fully booked, book another flight", HttpStatus.NOT_FOUND);
+	}
 	
+//--------------------------------------------------------------------------------------------------------------------------
 	
+	// Post request for adding passengers for booking id
+	
+		@PostMapping(value = "/passengers", consumes = "application/json")
+		public ResponseEntity<?> addPassengers(@RequestBody List<Passenger> passengersList, @RequestParam("bid") int bookingId) {
+			
+			String mesg = bookingService.addPassengers(passengersList, bookingId);
+			
+			return new ResponseEntity<String>(mesg, HttpStatus.OK);
+		}
+
+//--------------------------------------------------------------------------------------------------------------------------
+		
+		@PostMapping("/pay")
+	    public ResponseEntity<?> processPayment(@RequestParam("bid") int bookingId) {
+			
+			String mesg = bookingService.processPayment(bookingId);
+			
+			return new ResponseEntity<String>(mesg,HttpStatus.OK);
+
+	    }
+		
+//--------------------------------------------------------------------------------------------------------------------------
+		
 	@GetMapping(value = "/seats", produces = "application/json")
-	public ResponseEntity<?> addBooking(@RequestParam("nos") int numberOfSeats, @RequestParam("fid") int flightId, @RequestParam("uid") int userId, @RequestParam("cls") String className ){
+	public ResponseEntity<?> addBooking(@RequestParam("nos") int numberOfSeats,
+										@RequestParam("fid") int flightId,
+										@RequestParam("uid") int userId,
+										@RequestParam("class") String className) {
+		
 		Booking booking = new Booking();
+		
 		booking.setNumberOfSeatsToBook(numberOfSeats);
 		
 		Flight selectedFlight = flightService.getFlightById(flightId);
+		
 		AppUser selectedUser = userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("Invalid user Id"));
 		
-		if(selectedFlight.getAvailableSeats() <= 0)
-		{
+		if (selectedFlight.getAvailableSeats() <= 0)
 			return new ResponseEntity<String>("Seats are not available.", HttpStatus.BAD_REQUEST);
-		}
-		else if(booking.getNumberOfSeatsToBook() > selectedFlight.getAvailableSeats())
-		{
-			return new ResponseEntity<String>("Only "+ selectedFlight.getAvailableSeats()+ " are available.", HttpStatus.BAD_REQUEST);
-		}
-		else
-		{
+		
+		
+		else if (booking.getNumberOfSeatsToBook() > selectedFlight.getAvailableSeats())
+			return new ResponseEntity<String>("Only " + selectedFlight.getAvailableSeats() + " are available.", HttpStatus.BAD_REQUEST);
+		
+		
+		else {
+			
 			int newSeatsRemaining = selectedFlight.getAvailableSeats() - booking.getNumberOfSeatsToBook();
+			
 			selectedFlight.setAvailableSeats(newSeatsRemaining);
 			
 			FlightDto flightDto = new FlightDto(selectedFlight.getFlightId(), selectedFlight.getSource(),
@@ -70,48 +116,40 @@ public class BookingController {
 					selectedFlight.getDepartureTime(), selectedFlight.getEconomyFare(),
 					selectedFlight.getFirstClassFare(), selectedFlight.getBusinessFare(),
 					selectedFlight.getAvailableSeats());
-			
 			try {
-				flightService.updateFlight(flightDto);
-			}catch (FlightException e) {
 				
+				flightService.updateFlight(flightDto);
+				
+			} catch (FlightException e) {
+
 			}
 			
 			int cid;
-			if(className.toLowerCase().equals("business"))
+			
+			if (className.toLowerCase().equals("business"))
 				cid = 1;
-			else if(className.toLowerCase().equals("firstclass"))
+			
+			else if (className.toLowerCase().equals("firstclass"))
 				cid = 2;
+			
 			else
 				cid = 3;
 			
-			Classes classes = classesRepo.findById(cid).get();
+			Classes classes=classesRepo.findById(cid).get();
+			
 			booking.setClasses(classes);
+			
 			booking.setFlight(selectedFlight);
+			
 			booking.setAppUser(selectedUser);
+			
 			booking.setBookingDate(LocalDate.now());
 			
 			bookingService.addBooking(booking);
-			return new ResponseEntity<Integer>(booking.getNumberOfSeatsToBook(), HttpStatus.OK);
 			
+			return new ResponseEntity<String>("" + booking.getBookingId(), HttpStatus.OK);
+
 		}
 	}
 	
-	// Post request for adding passangers for booking id
-	@PostMapping(value = "/passengers", consumes = "application/json")
-	public ResponseEntity<?> addPassengers(@RequestBody List<Passenger> passengerList, @RequestParam("bookingId") int bookingId)
-	{
-		String mesg = bookingService.addPassengers(passengerList, bookingId);
-		return new ResponseEntity<String>(mesg, HttpStatus.OK);
-	}
 }
-
-
-
-
-
-
-
-
-
-
