@@ -50,9 +50,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success("Booking Successful.", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success("Booking Successful.");
       const bid = parseInt(sessionStorage.getItem("bid"));
       console.log(bid);
       UserService.pay(bid)
@@ -61,13 +59,9 @@ const Checkout = () => {
         })
         .catch((error) => {
           if (error.response.status === 404 || error.response.status === 400) {
-            toast.error(`${error.response.data}`, {
-              position: toast.POSITION.TOP_CENTER,
-            });
+            toast.error(`${error.response.data}`);
           } else if (error.response.status === 500)
-            toast.error(`No succesful booking yet.`, {
-              position: toast.POSITION.TOP_CENTER,
-            });
+            toast.error(`No succesful booking yet.`);
         });
       navigate("/");
     }

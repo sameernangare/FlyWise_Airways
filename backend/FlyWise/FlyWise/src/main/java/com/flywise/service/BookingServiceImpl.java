@@ -12,6 +12,7 @@ import com.flywise.pojos.Booking;
 import com.flywise.pojos.Flight;
 import com.flywise.pojos.Passenger;
 import com.flywise.repository.BookingRepository;
+import com.flywise.repository.FlightRepository;
 import com.flywise.repository.PassengerRepository;
 
 @Service
@@ -23,6 +24,9 @@ public class BookingServiceImpl implements IBookingService{
 	
 	@Autowired
 	private PassengerRepository passengerRepo;
+	
+	@Autowired
+	private FlightRepository FlightRepository;
 	
 	@Override
 	public void addBooking(Booking booking) {
@@ -44,6 +48,14 @@ public class BookingServiceImpl implements IBookingService{
 			passengerRepo.save(list.get(i));
 		}
 		return "Passengers added successfully";
+	}
+	@Override
+	public Flight getFlightDetails(int fid) {
+		Flight flight = FlightRepository.findById(fid).get();
+		if(flight.getAvailableSeats()!=0)
+			return flight;
+		else
+			return null;
 	}
 
 }

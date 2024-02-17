@@ -104,6 +104,17 @@ public class BookingController {
 		String mesg = bookingService.addPassengers(passengerList, bookingId);
 		return new ResponseEntity<String>(mesg, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/details", produces = "application/json")
+	public ResponseEntity<?> bookingDetails(@RequestParam("fid") String fid) {
+		Flight flight = bookingService.getFlightDetails(Integer.parseInt(fid));
+		if (flight != null)
+			return new ResponseEntity<Flight>(flight, HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("Flight you asked for is fully booked, book another flight",
+					HttpStatus.NOT_FOUND);
+	}
 }
 
 
